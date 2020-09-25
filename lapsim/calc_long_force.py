@@ -2,6 +2,9 @@
 # input normal load on rear track, gives longitudinal force of rear track
 import math
 
+#Cyrus
+#I have no clue what's happening here, but I believe dynamics is currently working on something similar to this for us
+
 def calc_long_force(a):
 
     #fz=normal load, lbs

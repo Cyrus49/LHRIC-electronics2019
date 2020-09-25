@@ -1,5 +1,9 @@
 import math
 from calc_lat_force import *
+#Cyrus
+#I don't understand anything that's going on. We were able to figure out some of the 
+#parameters here: https://app.lucidchart.com/invitations/accept/980ba211-a473-4f38-bb3f-97fc6c79325d
+
 def calc_corner_time_2(W, hcg, hcp, cl, cd, WB, t_f, t_r, weight_dist, cp_dist, R, degrees, target_cf, v_0, v_f):
 
 

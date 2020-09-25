@@ -6,6 +6,9 @@ import math
 #positive alpha = positive force
 #negative camber = "good" camber
 
+#Cyrus
+#I have no clue what's happening here, but I believe dynamics is currently working on something similar to this for us
+
 def calc_lat_force(f_z, a, gamma):
 
 

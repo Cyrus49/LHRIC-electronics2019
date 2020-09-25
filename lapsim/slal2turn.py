@@ -1,4 +1,6 @@
 import math
+#Cyrus
+#What is this calculating?
 def slal2turn(T, spacing, length):
 
     r = T/4 + spacing**2/(4*T)

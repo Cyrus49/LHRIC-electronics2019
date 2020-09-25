@@ -50,6 +50,10 @@ def calc_straight_time(W, hcg, hcp, cl, cd, WB, weight_dist, cp_dist, v_0, v_f, 
     #Something to do with a v_crit and exceeding max loop count
     k=0
 
+    
+    #Cyrus
+    #What's happening here?
+
     #d_total is an iteration count? Set to 246 for some reason.
     while d_calc < d_total:
         
