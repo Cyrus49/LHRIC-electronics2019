@@ -11,7 +11,8 @@ import math
 
 def calc_lat_force(f_z, a, gamma):
 
-
+    #fz- normal force
+    #fz0 - 
     fz = f_z*4.448 #lb to N
 
     fz0 = 663.94 #N
