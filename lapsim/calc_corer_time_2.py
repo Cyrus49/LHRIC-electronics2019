@@ -3,6 +3,16 @@ from calc_lat_force import *
 #Cyrus
 #I don't understand anything that's going on. We were able to figure out some of the 
 #parameters here: https://app.lucidchart.com/invitations/accept/980ba211-a473-4f38-bb3f-97fc6c79325d
+# Required traction to hold car in corner - ex how much centrifugal force does the car exert 
+#   F = mv^2/r - mass, velocity, radius
+#   We want the force of the tires to equal the above equation ^^^ and solve for velocity
+#   Total traction has to be calculated for EACH tire - we must account for weight transfer. Load on outside tires is more than load on inside tires
+#   Dynamics has the fucntion, for x roll, here's the amount of traction on each tire
+#   Front wheels are operating at different angles due to them being turned.
+#   
+
+# How much traction do the tires put out? - Waiting on dynamics to hear back
+# How much downforce is the car creating
 
 def calc_corner_time_2(W, hcg, hcp, cl, cd, WB, t_f, t_r, weight_dist, cp_dist, R, degrees, target_cf, v_0, v_f):
 

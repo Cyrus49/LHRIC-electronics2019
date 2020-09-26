@@ -23,11 +23,15 @@ def f_torque(v, final_drive):
     gear4 = 1.263
     gear5 = 1.05
 
+
     RPM1 = (v*60*gear1*primary*final_drive) / (2*math.pi*tire_radius)
     RPM2 = (v*60*gear2*primary*final_drive) / (2*math.pi*tire_radius)
     RPM3 = (v*60*gear3*primary*final_drive) / (2*math.pi*tire_radius)
     RPM4 = (v*60*gear4*primary*final_drive) / (2*math.pi*tire_radius)
     RPM5 = (v*60*gear5*primary*final_drive) / (2*math.pi*tire_radius)
+
+    print(RPM1, RPM2, RPM3, RPM4, RPM5)
+
 
     torque1 = calc_torque(RPM1, t3000, t4000, t5000, t6000, t7000, t8000, t9000, t10000, t11000)
     torque2 = calc_torque(RPM2, t3000, t4000, t5000, t6000, t7000, t8000, t9000, t10000, t11000)
@@ -46,6 +50,8 @@ def f_torque(v, final_drive):
     thrust_force_5 = (torque2*gear2*final_drive*primary) / tire_radius #Var name and torque/gears mismatched???
 
     thrust_force_0 = (t3000*gear1*final_drive*primary) / tire_radius #unused??
+
+    print(thrust_force_1,thrust_force_2,thrust_force_3,thrust_force_4, thrust_force_5)
 
     TF = [thrust_force_1, thrust_force_2, thrust_force_3, thrust_force_4, thrust_force_5]
 
