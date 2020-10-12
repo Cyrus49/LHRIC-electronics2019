@@ -35,16 +35,24 @@ def wheel_torque(velocity):
     print(engine_rpm_per_gear)
     for i in range(len(GEAR_RATIOS)):
         cur_torque_idx = 0
+        #Find points in the torque curve that surround current RPM to preform linear regression
         if engine_rpm_per_gear[i]<ENGINE_MIN_SPEED or engine_rpm_per_gear[i]>ENGINE_REDLINE:
             cur_torque_idx = -1
         else:
-            while cur_torque_idx < len(ENGINE_TORQUE)-1 and ENGINE_TORQUE[cur_torque_idx][0] <= engine_rpm_per_gear[i]:
+            while  ENGINE_TORQUE[cur_torque_idx][0] <= engine_rpm_per_gear[i]:
                 cur_torque_idx+=1
+
+        #Preform linear regression if rpm is within rev range
         print(cur_torque_idx)
         if cur_torque_idx == -1:
             wheel_torque_per_gear[i] = 0
+            print("NO REGRESSION - OUT OF REV RANGE")
         else:
-            wheel_torque_per_gear[i] = (((engine_rpm_per_gear[i] - ENGINE_TORQUE[i-1][0]) * (ENGINE_TORQUE[i][1] - ENGINE_TORQUE[i-1][1]))/ (ENGINE_TORQUE[i][0] - ENGINE_TORQUE[i-1][0])) + ENGINE_TORQUE[i-1][1]
+            rpm_diff = engine_rpm_per_gear[i] - ENGINE_TORQUE[cur_torque_idx-1][0] #This will show how many RPM away we are from the lower rpm value we're in between
+            torque_range = ENGINE_TORQUE[cur_torque_idx][1] - ENGINE_TORQUE[cur_torque_idx-1][1] #This is the difference in torque between the 2 points that surround our current RPM value
+            rpm_range = ENGINE_TORQUE[cur_torque_idx][0] - ENGINE_TORQUE[cur_torque_idx-1][0] #The difference in RPM between the 2 points we're using to preform the regression
+            print("RPM diff", rpm_diff, "\t Torque_range", torque_range, "\t RPM range", rpm_range, "\tTorque curve upper index",cur_torque_idx)
+            wheel_torque_per_gear[i] = ((rpm_diff * torque_range)/ rpm_range) + ENGINE_TORQUE[cur_torque_idx-1][1]
         
     print(wheel_torque_per_gear)
     
