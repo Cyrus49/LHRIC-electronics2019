@@ -39,6 +39,8 @@ def f_torque(v, final_drive):
     torque4 = calc_torque(RPM4, t3000, t4000, t5000, t6000, t7000, t8000, t9000, t10000, t11000)
     torque5 = calc_torque(RPM5, t3000, t4000, t5000, t6000, t7000, t8000, t9000, t10000, t11000)
 
+    print(torque1,torque2,torque3,torque4,torque5)
+
     thrust_force_1 = (torque1*gear1*final_drive*primary) / tire_radius
 
     thrust_force_2 = (torque5*gear5*final_drive*primary) / tire_radius
@@ -51,6 +53,7 @@ def f_torque(v, final_drive):
 
     thrust_force_0 = (t3000*gear1*final_drive*primary) / tire_radius #unused??
 
+    #NOTE: I think they reversed some of the gears for this calculation, as higher gears appear to have more wheel torque with similar engine torque
     print(thrust_force_1,thrust_force_2,thrust_force_3,thrust_force_4, thrust_force_5)
 
     TF = [thrust_force_1, thrust_force_2, thrust_force_3, thrust_force_4, thrust_force_5]

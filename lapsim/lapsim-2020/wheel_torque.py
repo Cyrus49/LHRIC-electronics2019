@@ -10,11 +10,7 @@ def wheel_torque(velocity):
     #GEAR_RATIOS = [2.583,1.923,1.533,1.263,1.05]
     ENGINE_REDLINE = 11000
     ENGINE_MIN_SPEED = ENGINE_TORQUE[0][0]
-    print(ENGINE_MIN_SPEED)
 
-    #RPM = [0] * len(GEAR_RATIOS)#AMT GEARS
-
-    #ENGINE_TORQUE[0] * len(GEAR_RATIOS)#Amt of engine torque for each gears
     
     #Calculate wheel RPM for each gear
     
@@ -31,10 +27,12 @@ def wheel_torque(velocity):
         
         
     
-    wheel_torque_per_gear = [0] * len(GEAR_RATIOS)
-    print(engine_rpm_per_gear)
+    engine_torque = [0] * len(GEAR_RATIOS) # Engine torque per gear
+
+    #print(engine_rpm_per_gear)
     for i in range(len(GEAR_RATIOS)):
         cur_torque_idx = 0
+
         #Find points in the torque curve that surround current RPM to preform linear regression
         if engine_rpm_per_gear[i]<ENGINE_MIN_SPEED or engine_rpm_per_gear[i]>ENGINE_REDLINE:
             cur_torque_idx = -1
@@ -43,34 +41,29 @@ def wheel_torque(velocity):
                 cur_torque_idx+=1
 
         #Preform linear regression if rpm is within rev range
-        print(cur_torque_idx)
+        #print(cur_torque_idx)
         if cur_torque_idx == -1:
-            wheel_torque_per_gear[i] = 0
-            print("NO REGRESSION - OUT OF REV RANGE")
+            engine_torque[i] = 0
+           # print("NO REGRESSION - OUT OF REV RANGE")
         else:
             rpm_diff = engine_rpm_per_gear[i] - ENGINE_TORQUE[cur_torque_idx-1][0] #This will show how many RPM away we are from the lower rpm value we're in between
             torque_range = ENGINE_TORQUE[cur_torque_idx][1] - ENGINE_TORQUE[cur_torque_idx-1][1] #This is the difference in torque between the 2 points that surround our current RPM value
             rpm_range = ENGINE_TORQUE[cur_torque_idx][0] - ENGINE_TORQUE[cur_torque_idx-1][0] #The difference in RPM between the 2 points we're using to preform the regression
-            print("RPM diff", rpm_diff, "\t Torque_range", torque_range, "\t RPM range", rpm_range, "\tTorque curve upper index",cur_torque_idx)
-            wheel_torque_per_gear[i] = ((rpm_diff * torque_range)/ rpm_range) + ENGINE_TORQUE[cur_torque_idx-1][1]
+            #print("RPM diff", rpm_diff, "\t Torque_range", torque_range, "\t RPM range", rpm_range, "\tTorque curve upper index",cur_torque_idx)
+            engine_torque[i] = ((rpm_diff * torque_range)/ rpm_range) + ENGINE_TORQUE[cur_torque_idx-1][1]
         
-    print(wheel_torque_per_gear)
+   # print(engine_torque)
     
-    #NO torque if below idle or above redline
-    if low_rpm_k>=3 and low_rpm_k <11:
-        #cur_engine_torque = ENGINE_TORQUE[low_rpm_k-3]
-        cur_engine_torque = ((cur_engine_rpm - low_rpm_k*1000) * (ENGINE_TORQUE[low_rpm_k+1 - 3] - ENGINE_TORQUE[low_rpm_k - 3]) )/1000 + ENGINE_TORQUE[low_rpm_k - 3]
-        print(cur_engine_torque, "cur engine torque")
-
+    
     #Calculate torque at the wheels
-    cur_wheel_torque = (cur_engine_torque*GEAR_RATIOS[cur_gear-1]*FINAL_DRIVE*PRIMARY) / TIRE_RADIUS    
+    wheel_torque = [0] * len(GEAR_RATIOS)
+    for i in range(len(GEAR_RATIOS)):
+        if engine_torque[i] > 0:
+            wheel_torque[i] = (engine_torque[i]*GEAR_RATIOS[i]*FINAL_DRIVE*PRIMARY) / TIRE_RADIUS    
 
-    print(cur_wheel_torque, "wheel torque")
+    print(wheel_torque, "wheel torque")
 
-    """
-    #Calculate torque for each gear
-    for cur_gear in range(len(GEAR_RATIOS)):
-        #Get 2 surrounding torque figures for each rmp.
-        """
+
+
 
 wheel_torque(60)
